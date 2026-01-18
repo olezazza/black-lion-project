@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1 class="mb-4 text-center text-warning">THE SQUAD</h1>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for player in players %}
+        <div class="col">
+            <div class="card h-100">
+                <img src="{{ player.image_url }}" class="card-img-top" style="height: 350px; object-fit: cover; object-position: top;" onerror="this.src='https://placehold.co/600x800/000/FFF?text=Player'">
+                <div class="card-body text-center">
+                    <h3 class="card-title">{{ player.name }}</h3>
+                    <span class="badge bg-warning text-dark mb-3 fs-5">{{ player.position }}</span>
+                    <ul class="list-unstyled text-secondary">
+                        <li>Age: {{ player.age }}</li>
+                        <li>{{ player.height }} cm | {{ player.weight }} kg</li>
+                    </ul>
+                    {% if current_user.is_admin %}
+                        <div class="d-flex justify-content-center gap-2 mt-3">
+                            <a href="{{ url_for('update_player', player_id=player.id) }}" class="btn btn-warning btn-sm">EDIT</a>
+                            <form action="{{ url_for('delete_player', id=player.id) }}" method="POST">
+                                <button type="submit" class="btn btn-danger btn-sm">REMOVE</button>
+                            </form>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock content %}

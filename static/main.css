@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Teko:wght@300;500;700&display=swap');
+
+body {
+    background-color: #000000;
+    color: #ffffff;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
+
+/* BRANDING */
+h1, h2, h3, h4, .navbar-brand, .btn-warning {
+    font-family: 'Teko', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* NAVBAR */
+.navbar {
+    background-color: #000000 !important;
+    border-bottom: 2px solid #d8e377;
+    padding: 1rem;
+}
+.navbar-brand { color: #d8e377 !important; font-size: 2rem; font-weight: bold; }
+.nav-link { color: #fff !important; font-size: 1.2rem; }
+.nav-link:hover { color: #d8e377 !important; }
+
+/* CARDS */
+.card {
+    background-color: #111;
+    border: 1px solid #333;
+    color: #fff;
+}
+.card:hover { border-color: #d8e377; }
+a { color: #d8e377; text-decoration: none; }
+a:hover { color: #fff; }
+
+/* FORMS */
+.form-control {
+    background-color: #000;
+    border: 1px solid #444;
+    color: #d8e377;
+}
+.form-control:focus {
+    background-color: #000;
+    border-color: #d8e377;
+    color: #fff;
+    box-shadow: none;
+}
+
+/* BUTTONS */
+.btn-warning {
+    background-color: #d8e377;
+    border: none;
+    color: #000;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+.btn-warning:hover { background-color: #fff; color: #000; }
+
+/* FOOTER (TBC) */
+.footer {
+    background-color: #111;
+    border-top: 1px solid #333;
+    padding: 20px 0;
+    margin-top: 50px;
+    text-align: center;
+    color: #888;
+}

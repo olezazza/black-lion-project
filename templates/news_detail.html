@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<article class="mb-5">
+    {% if current_user.is_admin %}
+        <div class="mb-3 d-flex gap-2 justify-content-end">
+            <a href="{{ url_for('update_news', news_id=post.id) }}" class="btn btn-warning btn-sm">EDIT POST</a>
+            <form action="{{ url_for('delete_news', id=post.id) }}" method="POST">
+                <input class="btn btn-danger btn-sm" type="submit" value="DELETE">
+            </form>
+        </div>
+    {% endif %}
+
+    <img src="{{ post.image_url }}" class="img-fluid w-100 mb-4 rounded" style="max-height: 500px; object-fit: cover; border: 1px solid #333;" onerror="this.style.display='none'">
+
+    <h1 class="text-warning mb-2">{{ post.title }}</h1>
+    <small class="text-muted d-block mb-4">{{ post.date_posted.strftime('%B %d, %Y') }}</small>
+    <div class="text-white fs-5" style="white-space: pre-wrap;">{{ post.content }}</div>
+</article>
+
+<div class="bg-dark p-4 rounded border border-secondary">
+    <h4 class="text-warning mb-4">Comments ({{ post.comments|length }})</h4>
+    {% for comment in post.comments %}
+        <div class="mb-3 border-bottom border-secondary pb-2">
+            <strong class="text-white">{{ comment.author.username }}</strong>
+            <small class="text-muted ms-2">{{ comment.date_posted.strftime('%Y-%m-%d') }}</small>
+            <p class="text-light mt-1">{{ comment.text }}</p>
+        </div>
+    {% endfor %}
+
+    {% if current_user.is_authenticated %}
+        <form method="POST" class="mt-4">
+            {{ form.hidden_tag() }}
+            <div class="mb-2">{{ form.text(class="form-control", placeholder="Write a comment...", rows="2") }}</div>
+            {{ form.submit(class="btn btn-warning btn-sm") }}
+        </form>
+    {% else %}
+        <p><a href="{{ url_for('login') }}">Login</a> to comment.</p>
+    {% endif %}
+</div>
+{% endblock content %}

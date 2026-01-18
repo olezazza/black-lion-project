@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="content-section p-4" style="background-color: #111; border: 1px solid #d8e377; max-width: 500px; margin: auto;">
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4 text-warning">Join the Pride</legend>
+            <div class="form-group mb-3">
+                {{ form.username.label(class="text-white") }}
+                {{ form.username(class="form-control") }}
+            </div>
+            <div class="form-group mb-3">
+                {{ form.email.label(class="text-white") }}
+                {{ form.email(class="form-control") }}
+            </div>
+            <div class="form-group mb-3">
+                {{ form.password.label(class="text-white") }}
+                {{ form.password(class="form-control") }}
+            </div>
+            </fieldset>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-warning w-100") }}
+        </div>
+    </form>
+    <div class="border-top pt-3 mt-3">
+        <small class="text-muted">
+            Already have an account? <a class="ml-2 text-warning" href="{{ url_for('login') }}">Sign In</a>
+        </small>
+    </div>
+</div>
+{% endblock content %}

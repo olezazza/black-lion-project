@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="p-5 mb-4 rounded-3 text-center" style="background-color: #111; border: 1px solid #d8e377; margin-top: 50px;">
+    <h1 class="display-3 fw-bold text-white">WE ARE <span style="color: #d8e377;">BLACK LION</span></h1>
+    <p class="lead text-white">The Pride of Georgian Rugby.</p>
+    <hr class="my-4" style="border-color: #d8e377;">
+    <p class="text-secondary">Official News. Official Squad. Official Fan Club.</p>
+    <a class="btn btn-warning btn-lg" href="{{ url_for('news') }}">LATEST NEWS</a>
+</div>
+{% endblock content %}
