@@ -9,7 +9,7 @@ app.config['SECRET_KEY'] = 'blacklion_secret_key'
 
 # --- DATABASE CONFIGURATION ---
 # PASTE YOUR RENDER POSTGRESQL URL INSIDE THE QUOTES BELOW:
-DB_URL = "postgresql://black_lion_db_user:V23G6Dp3Fy580TaMH3CtxfvtZJl1Q3RJ@dpg-d5mtftsmrvns73fcrmb0-a/black_lion_db"
+DB_URL = "postgresql://black_lion_db_ei2o_user:rlRmxZmEpUG0b26YZA447IuppHTRfIEd@dpg-d5mttml6ubrc73afjs6g-a/black_lion_db_ei2o"
 
 # Fix for Render's URL format (Render uses 'postgres://' but SQLAlchemy needs 'postgresql://')
 if DB_URL.startswith("postgres://"):
@@ -185,3 +185,4 @@ def delete_player(id):
 
 if __name__ == '__main__':
     app.run(debug=True)
+
