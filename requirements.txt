@@ -4,3 +4,4 @@ Flask-Login
 Flask-WTF
 email_validator
 gunicorn
+psycopg2-binary
