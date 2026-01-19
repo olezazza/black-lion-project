@@ -6,7 +6,19 @@ from forms import RegistrationForm, LoginForm, NewsForm, PlayerForm, CommentForm
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'blacklion_secret_key'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+
+# --- DATABASE CONFIGURATION (POSTGRESQL SWITCH) ---
+# 1. Go to Render Dashboard -> Dashboard -> New -> PostgreSQL
+# 2. Copy the "Internal Database URL"
+# 3. Paste it inside the quotes below:
+DB_URL = "postgresql://black_lion_db_user:V23G6Dp3Fy580TaMH3CtxfvtZJl1Q3RJ@dpg-d5mtftsmrvns73fcrmb0-a/black_lion_db"
+
+# Fix for Render's URL format (Render uses 'postgres://' but SQLAlchemy needs 'postgresql://')
+if DB_URL.startswith("postgres://"):
+    DB_URL = DB_URL.replace("postgres://", "postgresql://", 1)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = DB_URL
+# --------------------------------------------------
 
 db.init_app(app)
 login_manager = LoginManager(app)
@@ -14,7 +26,6 @@ login_manager.login_view = 'login'
 
 # --- CRITICAL FIX FOR RENDER DEPLOYMENT ---
 # This forces the database tables to be created as soon as the app starts.
-# Without this, Render will say "no such table" because it runs Gunicorn, not main.
 with app.app_context():
     db.create_all()
 # ------------------------------------------
@@ -61,7 +72,7 @@ def register():
         hashed_pw = generate_password_hash(form.password.data)
         # AUTO-ADMIN LOGIC: If this is the first user ever, make them Admin
         is_first_user = (User.query.count() == 0)
-        user = User(username=form.username.data, email=form.email.data,
+        user = User(username=form.username.data, email=form.email.data, 
                     password=hashed_pw, is_admin=is_first_user)
         db.session.add(user)
         db.session.commit()
@@ -124,7 +135,7 @@ def create_player():
     if not current_user.is_admin: abort(403)
     form = PlayerForm()
     if form.validate_on_submit():
-        player = Player(name=form.name.data, position=form.position.data, age=form.age.data,
+        player = Player(name=form.name.data, position=form.position.data, age=form.age.data, 
                         height=form.height.data, weight=form.weight.data, image_url=form.image_url.data)
         db.session.add(player)
         db.session.commit()
@@ -159,20 +170,4 @@ def update_player(player_id):
 @login_required
 def delete_news(id):
     if not current_user.is_admin: abort(403)
-    post = News.query.get_or_404(id)
-    db.session.delete(post)
-    db.session.commit()
-    return redirect(url_for('news'))
-
-@app.route("/delete/player/<int:id>", methods=['POST'])
-@login_required
-def delete_player(id):
-    if not current_user.is_admin: abort(403)
-    player = Player.query.get_or_404(id)
-    db.session.delete(player)
-    db.session.commit()
-    return redirect(url_for('players'))
-
-if __name__ == '__main__':
-    # Local development runner
-    app.run(debug=True)
+    post = News.query.get_or_404(
