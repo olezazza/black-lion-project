@@ -8,7 +8,7 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(60), nullable=False)
+    password = db.Column(db.String(355), nullable=False)
     is_admin = db.Column(db.Boolean, default=False, nullable=False)
     comments = db.relationship('Comment', backref='author', lazy=True)
 
@@ -34,4 +34,5 @@ class Comment(db.Model):
     text = db.Column(db.Text, nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
     news_id = db.Column(db.Integer, db.ForeignKey('news.id'), nullable=False)
