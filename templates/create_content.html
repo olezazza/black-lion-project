@@ -6,22 +6,36 @@
         <fieldset class="form-group">
             <legend class="border-bottom mb-4 text-warning">{{ legend }}</legend>
 
-            {% if form.title %}
-                <div class="mb-3">{{ form.title.label(class="text-white") }} {{ form.title(class="form-control") }}</div>
-                <div class="mb-3">{{ form.image_url.label(class="text-white") }} {{ form.image_url(class="form-control") }}</div>
-                <div class="mb-3">{{ form.content.label(class="text-white") }} {{ form.content(class="form-control", rows="5") }}</div>
+            {% if form.home_team %}
+                <div class="row mb-3">
+                    <div class="col">{{ form.home_team.label(class="text-white") }} {{ form.home_team(class="form-control") }}</div>
+                    <div class="col">{{ form.away_team.label(class="text-white") }} {{ form.away_team(class="form-control") }}</div>
+                </div>
+                <div class="mb-3">{{ form.venue.label(class="text-white") }} {{ form.venue(class="form-control") }}</div>
+                <div class="mb-3">{{ form.date.label(class="text-white") }} {{ form.date(class="form-control") }}</div>
+                <div class="mb-3">{{ form.ticket_link.label(class="text-white") }} {{ form.ticket_link(class="form-control") }}</div>
+
+                <hr class="text-secondary">
+                <div class="mb-3 text-white">
+                    {{ form.is_played(class="form-check-input") }} {{ form.is_played.label(class="form-check-label") }}
+                </div>
+                <div class="row mb-3">
+                    <div class="col">{{ form.home_score.label(class="text-white") }} {{ form.home_score(class="form-control") }}</div>
+                    <div class="col">{{ form.away_score.label(class="text-white") }} {{ form.away_score(class="form-control") }}</div>
+                </div>
+                <div class="mb-3">{{ form.outcome.label(class="text-white") }} {{ form.outcome(class="form-control") }}</div>
             {% endif %}
 
-            {% if form.name %}
-                 <div class="mb-3">{{ form.name.label(class="text-white") }} {{ form.name(class="form-control") }}</div>
-                 <div class="mb-3">{{ form.position.label(class="text-white") }} {{ form.position(class="form-control") }}</div>
-                 <div class="row mb-3">
-                    <div class="col">{{ form.age.label(class="text-white") }} {{ form.age(class="form-control") }}</div>
-                    <div class="col">{{ form.height.label(class="text-white") }} {{ form.height(class="form-control") }}</div>
-                    <div class="col">{{ form.weight.label(class="text-white") }} {{ form.weight(class="form-control") }}</div>
-                 </div>
-                 <div class="mb-3">{{ form.image_url.label(class="text-white") }} {{ form.image_url(class="form-control") }}</div>
+            {% if form.team_name and form.points %}
+                <div class="mb-3">{{ form.position.label(class="text-white") }} {{ form.position(class="form-control") }}</div>
+                <div class="mb-3">{{ form.team_name.label(class="text-white") }} {{ form.team_name(class="form-control") }}</div>
+                <div class="mb-3">{{ form.played.label(class="text-white") }} {{ form.played(class="form-control") }}</div>
+                <div class="mb-3">{{ form.points.label(class="text-white") }} {{ form.points(class="form-control") }}</div>
             {% endif %}
+
+            {% if form.title %}<div class="mb-3">{{ form.title.label(class="text-white") }} {{ form.title(class="form-control") }}</div><div class="mb-3">{{ form.image_url.label(class="text-white") }} {{ form.image_url(class="form-control") }}</div><div class="mb-3">{{ form.content.label(class="text-white") }} {{ form.content(class="form-control", rows="5") }}</div>{% endif %}
+            {% if form.name %}<div class="mb-3">{{ form.name.label(class="text-white") }} {{ form.name(class="form-control") }}</div><div class="mb-3">{{ form.position.label(class="text-white") }} {{ form.position(class="form-control") }}</div><div class="row mb-3"><div class="col">{{ form.age.label(class="text-white") }} {{ form.age(class="form-control") }}</div><div class="col">{{ form.height.label(class="text-white") }} {{ form.height(class="form-control") }}</div><div class="col">{{ form.weight.label(class="text-white") }} {{ form.weight(class="form-control") }}</div></div><div class="mb-3">{{ form.image_url.label(class="text-white") }} {{ form.image_url(class="form-control") }}</div>{% endif %}
+
         </fieldset>
         <div class="form-group">
             {{ form.submit(class="btn btn-warning w-100") }}
