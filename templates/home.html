@@ -1,10 +1,190 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="p-5 mb-4 rounded-3 text-center" style="background-color: #111; border: 1px solid #d8e377; margin-top: 50px;">
-    <h1 class="display-3 fw-bold text-white">WE ARE <span style="color: #d8e377;">BLACK LION</span></h1>
-    <p class="lead text-white">The Pride of Georgian Rugby.</p>
-    <hr class="my-4" style="border-color: #d8e377;">
-    <p class="text-secondary">Official News. Official Squad. Official Fan Club.</p>
-    <a class="btn btn-warning btn-lg" href="{{ url_for('news') }}">LATEST NEWS</a>
+
+<style>
+    /* HIGH CONTRAST THEME */
+    .neon-text { color: #d8e377 !important; }
+    .neon-border { border: 1px solid #d8e377 !important; }
+    .neon-bg { background-color: #d8e377 !important; color: #000 !important; }
+
+    .hero-section {
+        background-color: #000;
+        background-image: radial-gradient(circle at center, #111 0%, #000 100%);
+        min-height: 85vh;
+        display: flex;
+        align-items: center;
+        border-bottom: 3px solid #d8e377;
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+
+    .countdown-box {
+        background: rgba(20, 20, 20, 0.9);
+        border: 2px solid #d8e377;
+        box-shadow: 0 0 25px rgba(216, 227, 119, 0.15);
+        padding: 30px;
+        border-radius: 0;
+    }
+
+    .match-card {
+        background-color: #111;
+        border: 1px solid #333;
+        transition: transform 0.2s;
+        border-radius: 0;
+    }
+    .match-card:hover {
+        border-color: #d8e377;
+        transform: translateY(-5px);
+    }
+
+    h1 { font-family: 'Teko', sans-serif; text-transform: uppercase; line-height: 0.9; }
+    .display-huge { font-size: 6rem; font-weight: 700; }
+
+    /* MOBILE SPECIFIC FIXES */
+    @media (max-width: 992px) { /* Tablet and Phone */
+        .display-huge { font-size: 4rem; }
+        .hero-section { min-height: auto; padding: 60px 0; }
+        .hero-text-col { margin-bottom: 40px; }
+    }
+</style>
+
+<div class="hero-section">
+    <div class="container">
+        <div class="row align-items-center g-0">
+
+            <div class="col-lg-6 text-center text-lg-start hero-text-col">
+                <h1 class="display-huge text-white mb-0">
+                    WE ARE <br>
+                    <span class="neon-text">BLACK LION</span>
+                </h1>
+                <p class="lead text-secondary mt-3 fs-4" style="letter-spacing: 1px;">
+                    THE PRIDE OF GEORGIAN RUGBY. <br>
+                    <span class="text-white">URC READY.</span>
+                </p>
+
+                <div class="mt-4 d-flex justify-content-center justify-content-lg-start gap-3">
+                    <a href="{{ url_for('players') }}" class="btn btn-outline-light rounded-0 px-4 py-2">SQUAD</a>
+                    <a href="{{ url_for('news') }}" class="btn neon-bg rounded-0 px-4 py-2 fw-bold">NEWS</a>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="countdown-box text-center">
+                    <h4 class="neon-text mb-4" style="font-family: 'Teko', sans-serif; letter-spacing: 2px;">NEXT MATCH: CHALLENGE CUP</h4>
+
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div class="w-100">
+                            <h2 class="fw-bold mb-0 text-white">BLACK LION</h2>
+                        </div>
+                        <div class="px-2">
+                            <span class="fs-3 fw-bold neon-text">VS</span>
+                        </div>
+                        <div class="w-100">
+                            <h2 class="fw-bold mb-0 text-white">CLERMONT</h2>
+                        </div>
+                    </div>
+
+                    <hr style="border-color: #333;">
+
+                    <div class="d-flex justify-content-center gap-2 text-white mb-4">
+                        <div>
+                            <span class="display-4 fw-bold" id="days">04</span>
+                            <div class="small neon-text">DAYS</div>
+                        </div>
+                        <div class="align-self-start pt-2"><span class="fs-2">:</span></div>
+                        <div>
+                            <span class="display-4 fw-bold" id="hours">12</span>
+                            <div class="small neon-text">HRS</div>
+                        </div>
+                        <div class="align-self-start pt-2"><span class="fs-2">:</span></div>
+                        <div>
+                            <span class="display-4 fw-bold" id="mins">30</span>
+                            <div class="small neon-text">MIN</div>
+                        </div>
+                        <div class="align-self-start pt-2"><span class="fs-2">:</span></div>
+                        <div>
+                            <span class="display-4 fw-bold" id="secs">00</span>
+                            <div class="small neon-text">SEC</div>
+                        </div>
+                    </div>
+
+                    <a href="https://tkt.ge" target="_blank" class="btn neon-bg btn-lg w-100 fw-bold rounded-0">
+                        GET TICKETS &rarr;
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
+
+<div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2" style="border-color: #333 !important;">
+        <h2 class="neon-text mb-0" style="font-family: 'Teko', sans-serif;">UPCOMING FIXTURES</h2>
+        <a href="{{ url_for('matches') }}" class="text-white text-decoration-none small">FULL CALENDAR &rarr;</a>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="match-card p-4">
+                <div class="d-flex justify-content-between text-white-50 small mb-3">
+                    <span class="text-white">JAN 20 | 18:00</span>
+                    <span class="text-white">TBILISI</span>
+                </div>
+                <div class="text-center">
+                    <h4 class="fw-bold text-white mb-0">BLACK LION</h4>
+                    <div class="neon-text fw-bold my-1">vs</div>
+                    <h4 class="fw-bold text-white mb-0">CASTRES</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="match-card p-4">
+                <div class="d-flex justify-content-between text-white-50 small mb-3">
+                    <span class="text-white">JAN 27 | 20:00</span>
+                    <span class="text-white">GLOUCESTER</span>
+                </div>
+                <div class="text-center">
+                    <h4 class="fw-bold text-white mb-0">GLOUCESTER</h4>
+                    <div class="neon-text fw-bold my-1">vs</div>
+                    <h4 class="fw-bold text-white mb-0">BLACK LION</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="match-card p-4" style="border-color: #222;">
+                <div class="d-flex justify-content-between text-white-50 small mb-3">
+                    <span class="neon-text">LATEST RESULT</span>
+                    <span class="text-white">WIN</span>
+                </div>
+                <div class="text-center">
+                    <div class="d-flex justify-content-center align-items-center gap-3">
+                        <h4 class="fw-bold text-white mb-0">BLACK LION</h4>
+                        <span class="badge neon-bg fs-5 px-3">23 - 7</span>
+                        <h4 class="fw-bold text-white mb-0">SCARLETS</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var countDownDate = new Date().getTime() + (4 * 24 * 60 * 60 * 1000);
+    var x = setInterval(function() {
+        var now = new Date().getTime();
+        var distance = countDownDate - now;
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        document.getElementById("days").innerHTML = (days < 10 ? "0" : "") + days;
+        document.getElementById("hours").innerHTML = (hours < 10 ? "0" : "") + hours;
+        document.getElementById("mins").innerHTML = (minutes < 10 ? "0" : "") + minutes;
+        document.getElementById("secs").innerHTML = (seconds < 10 ? "0" : "") + seconds;
+    }, 1000);
+</script>
+
 {% endblock content %}
