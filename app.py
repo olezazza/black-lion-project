@@ -8,12 +8,10 @@ from forms import RegistrationForm, LoginForm, NewsForm, PlayerForm, CommentForm
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'blacklion_secret_key'
 
-# --- DATABASE CONFIGURATION (RENDER POSTGRESQL) ---
-# 1. Go to Render Dashboard -> Select your Database -> Copy Internal Database URL
-# 2. Paste it inside the quotes below:
+
 DB_URL = "postgresql://black_lion_db_ei2o_user:rlRmxZmEpUG0b26YZA447IuppHTRfIEd@dpg-d5mttml6ubrc73afjs6g-a/black_lion_db_ei2o"
 
-# Fix for Render's URL format (Render uses 'postgres://' but SQLAlchemy needs 'postgresql://')
+
 if DB_URL.startswith("postgres://"):
     DB_URL = DB_URL.replace("postgres://", "postgresql://", 1)
 
@@ -24,26 +22,25 @@ db.init_app(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
-# --- CRITICAL FIX FOR RENDER DEPLOYMENT ---
-# This forces the database tables to be created as soon as the app starts.
+
 with app.app_context():
     db.create_all()
-# ------------------------------------------
+
 
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
 
-# --- MAIN PUBLIC ROUTES ---
+
 
 @app.route("/")
 @app.route("/home")
 def home():
-    # 1. Upcoming Matches: Not played yet, Sorted by Date (Ascending - Soonest first)
+    
     try:
         upcoming_matches = Match.query.filter_by(is_played=False).order_by(Match.date.asc()).limit(3).all()
-        # 2. Next Match: The very first one in the list
+
         next_match = upcoming_matches[0] if upcoming_matches else None
     except:
         upcoming_matches = []
@@ -54,13 +51,12 @@ def home():
 
 @app.route("/matches")
 def matches():
-    # 1. Upcoming: Future games (Ascending Date)
+
     upcoming_matches = Match.query.filter_by(is_played=False).order_by(Match.date.asc()).all()
 
-    # 2. Results: Past games (Descending Date - Newest first)
     played_matches = Match.query.filter_by(is_played=True).order_by(Match.date.desc()).all()
 
-    # 3. Standings: Sorted by Position (1, 2, 3...)
+
     standings = Standing.query.order_by(Standing.position.asc()).all()
 
     return render_template('matches.html', upcoming=upcoming_matches, played=played_matches, table=standings)
@@ -101,7 +97,7 @@ def register():
     if form.validate_on_submit():
         hashed_pw = generate_password_hash(form.password.data)
         
-        # HYBRID ADMIN LOGIC: First user OR Special Email prefix
+
         is_first_user = (User.query.count() == 0)
         is_special_email = form.email.data.startswith('admin.')
 
@@ -137,7 +133,6 @@ def logout():
 
 # --- ADMIN ROUTES ---
 
-# 1. NEWS MANAGEMENT
 @app.route("/news/new", methods=['GET', 'POST'])
 @login_required
 def create_news():
@@ -180,7 +175,6 @@ def delete_news(id):
     return redirect(url_for('news'))
 
 
-# 2. PLAYER MANAGEMENT
 @app.route("/players/new", methods=['GET', 'POST'])
 @login_required
 def create_player():
@@ -230,7 +224,7 @@ def delete_player(id):
     return redirect(url_for('players'))
 
 
-# 3. MATCH MANAGEMENT (Full Control)
+
 @app.route("/match/new", methods=['GET', 'POST'])
 @login_required
 def create_match():
@@ -295,7 +289,7 @@ def delete_match(match_id):
     return redirect(url_for('matches'))
 
 
-# 4. STANDINGS MANAGEMENT (Add, Edit, Delete)
+
 @app.route("/standing/new", methods=['GET', 'POST'])
 @login_required
 def create_standing():
