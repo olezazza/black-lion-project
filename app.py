@@ -9,7 +9,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'blacklion_secret_key'
 
 
-DB_URL = "postgresql://black_lion_db_ei2o_user:rlRmxZmEpUG0b26YZA447IuppHTRfIEd@dpg-d5mttml6ubrc73afjs6g-a/black_lion_db_ei2o"
+DB_URL = "postgresql://blackliondatabase_user:IWqbVgO1yLhjl86ee5UXj0Ldrya7Pt6V@dpg-d9sjsrifngtc73fft3r0-a/blackliondatabase"
 
 
 if DB_URL.startswith("postgres://"):
