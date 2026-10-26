@@ -33,48 +33,6 @@ The project was developed as my **final project at TBC TechSchool**, as an oppor
 - Git
 - The dependencies listed in the project, if a `requirements.txt` file is available
 
-### Installation
-
-1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/olezazza/black-lion-project.git
-   ```
-
-2. Navigate to the project directory:
-
-   ```bash
-   cd black-lion-project
-   ```
-
-3. Create and activate a virtual environment:
-
-   ```bash
-   python -m venv venv
-   ```
-
-   On Windows:
-
-   ```bash
-   venv\Scripts\activate
-   ```
-
-4. Install the project dependencies, if `requirements.txt` is present:
-
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-5. Run the Flask application using the entry-point file configured in the project.
-
-   For example, if the entry point is `app.py`:
-
-   ```bash
-   python app.py
-   ```
-
-6. Open the local address displayed in the terminal in your browser.
-
 ## Educational Background
 
 This project was created as the **final project for TBC TechSchool**, demonstrating practical experience in web development, backend programming, database integration, and building interactive web applications.
